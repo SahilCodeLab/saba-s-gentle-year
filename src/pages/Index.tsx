@@ -44,8 +44,9 @@ const Index = () => {
         }}
       />
 
-      {/* Audio player - using a royalty-free piano placeholder URL */}
-      <AudioPlayer audioSrc="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0c6ff1bab.mp3?filename=relaxing-piano-music-114824.mp3" />
+      {/* Audio player - Soft, romantic piano music */}
+      {/* Agar aap koi specific gana chahte hain, toh neeche URL replace karein */}
+      <AudioPlayer audioSrc="https://cdn.pixabay.com/download/audio/2022/03/09/audio_822ca87a29.mp3?filename=piano-moment-119623.mp3" />
 
       {/* Step indicator */}
       {currentStep > 0 && currentStep < steps.length - 1 && (
