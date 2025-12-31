@@ -6,72 +6,84 @@ interface Step2Props {
 }
 
 const Step2Moments = ({ onNext }: Step2Props) => {
-  // Yahan aap wo baatein likh sakte hain jo aapko unke baare mein pasand hain
-  const moments = [
-    { text: "Tumhari awaaz sunkar mera din ban jaata hai.", delay: 0.2 },
-    { text: "Jis tarah tum meri faaltu baatein bhi dhyan se sunti ho.", delay: 0.4 },
-    { text: "Tumhara gussa, jo thodi der mein hi pighal jaata hai.", delay: 0.6 },
-    { text: "Tumhari wo hasi jo mere dil ko sukoon deti hai.", delay: 0.8 },
-    { text: "Bas tumhara hona hi mere liye kaafi hai.", delay: 1.0 },
-  ];
-
   return (
     <motion.div
-      className="min-h-screen flex flex-col items-center justify-center px-6 py-20"
+      className="min-h-screen flex flex-col items-center justify-center px-6 py-12"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <div className="w-full max-w-4xl mx-auto text-center">
+      <div className="w-full max-w-2xl mx-auto text-center space-y-10">
+        
         {/* Title */}
         <motion.h2
-          className="font-display text-3xl md:text-5xl text-foreground mb-4"
-          initial={{ opacity: 0, y: 30 }}
+          className="font-display text-2xl md:text-4xl text-foreground"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
         >
-          Tumhari Kuch Baatein...
+          Ek saal… bina plan ke, bina label ke.
         </motion.h2>
 
-        <motion.p
-          className="font-body text-lg text-muted-foreground mb-12 italic"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
-          Jo shabdon mein bayan nahi hoti, par mehsoos hoti hain.
-        </motion.p>
+        {/* Main text block */}
+        <div className="space-y-8 font-body text-lg md:text-xl text-foreground/90 leading-relaxed">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            Kabhi kabhi insaan nahi,
+            <br />
+            uska asar yaad reh jaata hai.
+          </motion.p>
 
-        {/* Floating Text Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-          {moments.map((item, index) => (
-            <motion.div
-              key={index}
-              className={`p-6 rounded-xl border border-primary/20 bg-card/40 backdrop-blur-sm shadow-sm ${
-                index === moments.length - 1 ? "md:col-span-2 md:w-1/2 md:mx-auto" : ""
-              }`}
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.8, delay: item.delay + 0.5, ease: "easeOut" }}
-              whileHover={{ scale: 1.02, backgroundColor: "rgba(var(--primary), 0.05)" }}
-            >
-              <p className="font-display text-xl text-foreground/90 leading-relaxed">
-                {item.text}
-              </p>
-            </motion.div>
-          ))}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.4 }}
+          >
+            2025 mere liye khaas raha,
+            <br />
+            shayad isliye kyunki tum us saal mili.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 2 }}
+          >
+            College ne subjects sikhaye honge,
+            <br />
+            par tumne samajhne ka tareeka sikhaya.
+          </motion.p>
         </div>
 
-        {/* Button */}
-        <motion.div 
-          className="mt-8"
+        {/* Poetic break */}
+        <motion.div
+          className="py-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.5 }}
+          transition={{ duration: 1, delay: 2.8 }}
+        >
+          <div className="w-16 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-6" />
+          <p className="font-display text-xl md:text-2xl text-primary/80 italic">
+            "Presence… jo dheere se
+            <br />
+            life ko re-arrange kar de."
+          </p>
+          <div className="w-16 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mt-6" />
+        </motion.div>
+
+        {/* Button */}
+        <motion.div
+          className="pt-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 4 }}
         >
           <ChapterButton onClick={onNext} delay={0}>
-            Aage chalo...
+            Next • Thoda aur
           </ChapterButton>
         </motion.div>
       </div>

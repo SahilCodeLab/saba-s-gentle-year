@@ -43,7 +43,7 @@ const OutroStep = () => {
 
         {/* Neon signature */}
         <motion.div
-          className="mb-16"
+          className="mb-12"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
@@ -65,14 +65,19 @@ const OutroStep = () => {
           From care, not demand.
         </motion.p>
 
-        {/* Year */}
+        {/* Anniversary note */}
         <motion.div
-          className="mt-16"
+          className="mt-12 space-y-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2, duration: 1 }}
         >
-          <span className="font-display text-xl text-primary/60">2026</span>
+          <p className="font-display text-lg text-primary/60">
+            10 January 2025 — 10 January 2026
+          </p>
+          <p className="font-body text-sm text-muted-foreground/50 italic">
+            One year of knowing you.
+          </p>
         </motion.div>
       </div>
     </motion.div>
