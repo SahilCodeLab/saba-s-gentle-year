@@ -35,7 +35,7 @@ const Step3Letter = ({ onNext }: Step3Props) => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
-            Dil Se
+            Mere Pyaare Insaan
           </motion.h2>
 
           {/* Letter content */}
@@ -45,7 +45,7 @@ const Step3Letter = ({ onNext }: Step3Props) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
             >
-              Tumse baat karna kabhi farz nahi lagta. Aisa lagta hai jaise din ne saans li.
+              Log kehte hain naya saal nayi shuruwat laata hai, par sach kahoon? Mujhe humare wahi puraane pal aur bhi zyada chahiye.
             </motion.p>
 
             <motion.p
@@ -53,7 +53,7 @@ const Step3Letter = ({ onNext }: Step3Props) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2, duration: 0.8 }}
             >
-              Tumhari simplicity mein ek peace hai jo rare hai. Jo log chaahte hain kisi mein dhundhte hain, wo tumhare paas khud se hai.
+              Tumhare saath waqt bas beet-ta nahi, *jeeya* jaata hai. Tumhari hassi mere din ka favorite music hai, aur tumhari baatein sukoon.
             </motion.p>
 
             <motion.p
@@ -61,7 +61,7 @@ const Step3Letter = ({ onNext }: Step3Props) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.6, duration: 0.8 }}
             >
-              Main nahi jaanta sab kuch kahan jaayega. But I know one thing — tumhare saath wala waqt genuine lagta hai.
+              Is aane waale saal mein, chaahe kuch bhi badle, bas ek cheez same rahe—humara saath. Main hamesha tumhare corner mein khada milunga.
             </motion.p>
 
             <motion.p
@@ -70,7 +70,7 @@ const Step3Letter = ({ onNext }: Step3Props) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2, duration: 0.8 }}
             >
-              Aur yahi kaafi hai.
+              Thank you for being you.
             </motion.p>
           </div>
 
@@ -81,7 +81,7 @@ const Step3Letter = ({ onNext }: Step3Props) => {
             animate={{ opacity: 1 }}
             transition={{ delay: 2.4 }}
           >
-            <span className="font-signature text-3xl text-primary">— Sahil</span>
+            <span className="font-signature text-3xl text-primary">— Sirf Tumhara</span>
           </motion.div>
         </motion.div>
 
@@ -93,7 +93,7 @@ const Step3Letter = ({ onNext }: Step3Props) => {
           transition={{ delay: 2.8 }}
         >
           <ChapterButton onClick={onNext} delay={0}>
-            Continue
+            Promises...
           </ChapterButton>
         </motion.div>
       </div>
