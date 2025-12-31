@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import AudioPlayer from "../components/AudioPlayer";
+import AudioPlayer, { AudioPlayerHandle } from "../components/AudioPlayer";
 import EntranceStep from "../steps/EntranceStep";
 import Step1Message from "../steps/Step1Message";
 import Step2Moments from "../steps/Step2Moments";
@@ -11,13 +11,22 @@ import OutroStep from "../steps/OutroStep";
 
 const Index = () => {
   const [currentStep, setCurrentStep] = useState(0);
+  const audioRef = useRef<AudioPlayerHandle>(null);
 
   const nextStep = () => {
     setCurrentStep((prev) => prev + 1);
   };
 
+  // Jab user "Begin" click karega, tab audio web se play hoga
+  const handleStart = () => {
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+    nextStep();
+  };
+
   const steps = [
-    <EntranceStep key="entrance" onNext={nextStep} />,
+    <EntranceStep key="entrance" onNext={handleStart} />,
     <Step1Message key="step1" onNext={nextStep} />,
     <Step2Moments key="step2" onNext={nextStep} />,
     <Step3Letter key="step3" onNext={nextStep} />,
@@ -44,9 +53,12 @@ const Index = () => {
         }}
       />
 
-      {/* Audio player - Soft, romantic piano music */}
-      {/* Agar aap koi specific gana chahte hain, toh neeche URL replace karein */}
-      <AudioPlayer audioSrc="https://cdn.pixabay.com/download/audio/2022/03/09/audio_822ca87a29.mp3?filename=piano-moment-119623.mp3" />
+      {/* ONLINE AUDIO PLAYER */}
+      {/* Yeh link direct web se music play karega */}
+      <AudioPlayer 
+        ref={audioRef}
+        audioSrc="https://cdn.pixabay.com/download/audio/2022/03/09/audio_822ca87a29.mp3?filename=piano-moment-119623.mp3" 
+      />
 
       {/* Step indicator */}
       {currentStep > 0 && currentStep < steps.length - 1 && (
