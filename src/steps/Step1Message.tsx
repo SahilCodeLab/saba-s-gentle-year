@@ -30,7 +30,7 @@ const Step1Message = ({ onNext }: Step1Props) => {
           animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
           transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
         >
-          New year se pehle…
+          Saal badal raha hai...
         </motion.p>
 
         <motion.p
@@ -39,7 +39,7 @@ const Step1Message = ({ onNext }: Step1Props) => {
           animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
           transition={{ duration: 1.5, delay: 1.2, ease: "easeOut" }}
         >
-          ek baat.
+          par kuch cheezein humesha wahi rahengi.
         </motion.p>
 
         <motion.p
@@ -48,7 +48,7 @@ const Step1Message = ({ onNext }: Step1Props) => {
           animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
           transition={{ duration: 1.5, delay: 2, ease: "easeOut" }}
         >
-          Tum ho, isliye main grateful hoon.
+          Jaise tumhari jagah, mere dil mein.
         </motion.p>
 
         {/* Decorative line */}
@@ -60,7 +60,7 @@ const Step1Message = ({ onNext }: Step1Props) => {
         />
 
         <ChapterButton onClick={onNext} delay={3}>
-          Next page
+          Open the year
         </ChapterButton>
       </div>
     </motion.div>
