@@ -6,102 +6,116 @@ interface Step1Props {
 }
 
 const Step1Message = ({ onNext }: Step1Props) => {
-  // Animation helper
-  const fadeIn = (delay: number) => ({
-    initial: { opacity: 0, y: 20, filter: "blur(4px)" },
-    animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-    transition: { duration: 1, delay: delay, ease: "easeOut" }
-  });
-
   return (
     <motion.div
-      className="min-h-screen flex flex-col items-center justify-center px-6 py-12 md:py-20"
+      className="min-h-screen flex flex-col items-center justify-center px-6 py-12"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Scrollable container for smaller screens */}
-      <div className="w-full max-w-xl mx-auto text-center space-y-8 overflow-y-auto max-h-[85vh] no-scrollbar py-4">
+      <div className="w-full max-w-2xl mx-auto text-center space-y-8">
         
-        {/* Decorative line */}
-        <motion.div
-          className="w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto sticky top-0"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 1, delay: 0.3 }}
-        />
-
-        {/* Para 1: Intro */}
-        <motion.div {...fadeIn(0.5)}>
-          <p className="font-display text-2xl md:text-3xl text-foreground mb-2">
-            Saal badal raha hai...
-          </p>
-          <p className="font-body text-lg text-muted-foreground italic">
-            par kuch cheezein apna asar chod jaati hain.
-          </p>
-        </motion.div>
-
-        {/* Para 2: Connection */}
-        <motion.p 
-          className="font-body text-lg text-foreground/90 leading-relaxed"
-          {...fadeIn(1.5)}
+        {/* Section Title */}
+        <motion.h2
+          className="font-display text-2xl md:text-4xl text-foreground mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
         >
-          Hamaare beech jo halka sa connection bana,
-          <br />shayad wohhi unme se ek hai, Saba.
+          Jahan sab shuru hua…
+        </motion.h2>
+
+        {/* Chat Bubbles Container */}
+        <div className="space-y-6 max-w-lg mx-auto">
+          {/* Left bubble - Saba */}
+          <motion.div
+            className="flex flex-col items-start"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
+            <span className="text-xs text-muted-foreground mb-1 ml-2">
+              10 January 2025 • 3:06 PM
+            </span>
+            <div className="bg-card/80 backdrop-blur-sm border border-primary/20 rounded-2xl rounded-bl-sm px-5 py-3 max-w-[85%] shadow-soft">
+              <p className="font-body text-foreground text-left">
+                Ap editing sikhate ho kya
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Right bubble - Sahil 1 */}
+          <motion.div
+            className="flex flex-col items-end"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 1.4 }}
+          >
+            <span className="text-xs text-muted-foreground mb-1 mr-2">
+              3:49 PM
+            </span>
+            <div className="bg-primary/10 backdrop-blur-sm border border-primary/30 rounded-2xl rounded-br-sm px-5 py-3 max-w-[85%] shadow-soft">
+              <p className="font-body text-foreground text-right">
+                Hello… sorry, thoda late ho gaya.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Right bubble - Sahil 2 */}
+          <motion.div
+            className="flex flex-col items-end"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 2 }}
+          >
+            <span className="text-xs text-muted-foreground mb-1 mr-2">
+              3:52 PM
+            </span>
+            <div className="bg-primary/10 backdrop-blur-sm border border-primary/30 rounded-2xl rounded-br-sm px-5 py-3 max-w-[85%] shadow-soft">
+              <p className="font-body text-foreground text-right">
+                Jii
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Right bubble - Sahil 3 */}
+          <motion.div
+            className="flex flex-col items-end"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 2.6 }}
+          >
+            <span className="text-xs text-muted-foreground mb-1 mr-2">
+              3:54 PM
+            </span>
+            <div className="bg-primary/10 backdrop-blur-sm border border-primary/30 rounded-2xl rounded-br-sm px-5 py-3 max-w-[85%] shadow-soft">
+              <p className="font-body text-foreground text-right">
+                Web designing etc…..
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Caption */}
+        <motion.p
+          className="font-body text-lg text-muted-foreground italic mt-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 3.5 }}
+        >
+          "Kabhi kabhi ek message, ek year ka direction badal deta hai."
         </motion.p>
-
-        {/* Para 3: 2025 Reflection */}
-        <motion.div 
-          className="space-y-4 font-body text-lg text-foreground/90 leading-relaxed"
-          {...fadeIn(2.5)}
-        >
-          <p>
-            2025 mere liye bohot khaas raha, shayad isliye kyunki us saal tum mili.
-          </p>
-          <p>
-            College ne subjects sikhaye honge, par tumne samajhne ka tareeka sikhaya.
-          </p>
-        </motion.div>
-
-        {/* Para 4: Growth */}
-        <motion.div 
-          className="space-y-4 font-body text-lg text-foreground/90 leading-relaxed"
-          {...fadeIn(3.5)}
-        >
-          <p>
-            Tumhare aane ke baad bohot kuch badla... khud ko dekha, socha, grow kiya.
-          </p>
-          <p>
-            Jab main thaka hua feel karta tha, tumhari baat ek chhota sa break jaisi lagti thi.
-          </p>
-        </motion.div>
-
-        {/* Para 5: Gratitude */}
-        <motion.div 
-          className="font-body text-lg text-foreground/90 leading-relaxed pb-4"
-          {...fadeIn(4.5)}
-        >
-          <p className="mb-4">
-            Ye sab bhoolne ka nahi, bas apne pace se sambhal kar rakhne jaisa hai.
-          </p>
-          <p className="font-display text-xl text-primary">
-            Thank you, Saba,
-          </p>
-          <p className="text-muted-foreground italic">
-            itna saath dene ke liye... jitna tumne diya.
-          </p>
-        </motion.div>
 
         {/* Button */}
         <motion.div
-          className="pt-4 pb-8"
+          className="pt-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 6 }}
+          transition={{ delay: 4.5 }}
         >
           <ChapterButton onClick={onNext} delay={0}>
-            Aage...
+            Aage chalein?
           </ChapterButton>
         </motion.div>
       </div>

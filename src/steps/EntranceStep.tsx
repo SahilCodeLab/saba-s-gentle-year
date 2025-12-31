@@ -46,23 +46,38 @@ const EntranceStep = ({ onNext }: EntranceStepProps) => {
         <CandleFlame size="lg" />
       </motion.div>
 
-      {/* Typewriter text */}
+      {/* Typewriter text - Anniversary Date */}
       <motion.h1
-        className="font-display text-3xl md:text-5xl text-center text-foreground mb-16"
+        className="font-display text-2xl md:text-4xl text-center text-foreground mb-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.8 }}
       >
         <TypewriterText 
-          text="Saba, Happy New Year 2026" 
-          speed={100}
+          text="10 January 2025 → 10 January 2026" 
+          speed={80}
           delay={1500}
         />
       </motion.h1>
 
+      {/* Subtext */}
+      <motion.div
+        className="text-center mb-16 space-y-2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 5, duration: 1 }}
+      >
+        <p className="font-display text-xl md:text-2xl text-foreground/90">
+          Aaj ek saal ho gaya, Saba.
+        </p>
+        <p className="font-body text-lg text-muted-foreground italic">
+          Late New Year wish hai… par sahi niyat se.
+        </p>
+      </motion.div>
+
       {/* Begin button */}
-      <ChapterButton onClick={onNext} delay={4}>
-        Begin
+      <ChapterButton onClick={onNext} delay={6.5}>
+        Begin, agar tumhe theek lage
       </ChapterButton>
     </motion.div>
   );
