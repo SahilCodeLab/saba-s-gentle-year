@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 
@@ -6,17 +6,33 @@ interface AudioPlayerProps {
   audioSrc: string;
 }
 
-const AudioPlayer = ({ audioSrc }: AudioPlayerProps) => {
+export interface AudioPlayerHandle {
+  play: () => void;
+}
+
+const AudioPlayer = forwardRef<AudioPlayerHandle, AudioPlayerProps>(({ audioSrc }, ref) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.3;
-      audioRef.current.loop = true;
+      audioRef.current.volume = 0.3; // Volume thoda soft rakha hai
+      audioRef.current.loop = true;  // Music khatam hone par wapas start hoga
     }
   }, []);
+
+  // Allow parent component to trigger play
+  useImperativeHandle(ref, () => ({
+    play: () => {
+      if (audioRef.current) {
+        audioRef.current.play().catch((e) => {
+          console.log("Autoplay prevented:", e);
+        });
+        setIsPlaying(true);
+      }
+    }
+  }));
 
   const togglePlay = () => {
     if (audioRef.current) {
@@ -43,6 +59,7 @@ const AudioPlayer = ({ audioSrc }: AudioPlayerProps) => {
         src={audioSrc}
         onCanPlay={() => setIsLoaded(true)}
         preload="auto"
+        crossOrigin="anonymous" 
       />
       
       <motion.button
@@ -94,6 +111,6 @@ const AudioPlayer = ({ audioSrc }: AudioPlayerProps) => {
       </motion.button>
     </motion.div>
   );
-};
+});
 
 export default AudioPlayer;
