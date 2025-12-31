@@ -1,12 +1,87 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import AudioPlayer from "../components/AudioPlayer";
+import EntranceStep from "../steps/EntranceStep";
+import Step1Message from "../steps/Step1Message";
+import Step2Moments from "../steps/Step2Moments";
+import Step3Letter from "../steps/Step3Letter";
+import Step4Promises from "../steps/Step4Promises";
+import Step5Wish from "../steps/Step5Wish";
+import OutroStep from "../steps/OutroStep";
 
 const Index = () => {
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const nextStep = () => {
+    setCurrentStep((prev) => prev + 1);
+  };
+
+  const steps = [
+    <EntranceStep key="entrance" onNext={nextStep} />,
+    <Step1Message key="step1" onNext={nextStep} />,
+    <Step2Moments key="step2" onNext={nextStep} />,
+    <Step3Letter key="step3" onNext={nextStep} />,
+    <Step4Promises key="step4" onNext={nextStep} />,
+    <Step5Wish key="step5" onNext={nextStep} />,
+    <OutroStep key="outro" />,
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-background via-cream-dark to-background overflow-hidden">
+      {/* Background texture overlay */}
+      <div 
+        className="fixed inset-0 pointer-events-none opacity-30 z-0"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      />
+
+      {/* Warm ambient glow at top */}
+      <div 
+        className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] pointer-events-none z-0"
+        style={{
+          background: `radial-gradient(ellipse at center top, hsl(var(--candle-glow) / 0.08), transparent 70%)`,
+        }}
+      />
+
+      {/* Audio player - using a royalty-free piano placeholder URL */}
+      <AudioPlayer audioSrc="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0c6ff1bab.mp3?filename=relaxing-piano-music-114824.mp3" />
+
+      {/* Step indicator */}
+      {currentStep > 0 && currentStep < steps.length - 1 && (
+        <motion.div
+          className="fixed top-6 left-6 z-50 flex gap-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          {Array.from({ length: steps.length - 1 }, (_, i) => (
+            <motion.div
+              key={i}
+              className={`w-2 h-2 rounded-full ${
+                i < currentStep ? "bg-primary" : "bg-muted"
+              }`}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: i * 0.1 }}
+            />
+          ))}
+        </motion.div>
+      )}
+
+      {/* Main content */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentStep}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative z-10"
+        >
+          {steps[currentStep]}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
