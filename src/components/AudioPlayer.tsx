@@ -1,116 +1,67 @@
-import { useState, useRef, useEffect, forwardRef, useImperativeHandle } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
-interface AudioPlayerProps {
-  audioSrc: string;
-}
-
-export interface AudioPlayerHandle {
-  play: () => void;
-}
-
-const AudioPlayer = forwardRef<AudioPlayerHandle, AudioPlayerProps>(({ audioSrc }, ref) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+const AudioPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.3; // Volume thoda soft rakha hai
-      audioRef.current.loop = true;  // Music khatam hone par wapas start hoga
-    }
+    // 1. Koshish karega autoplay ki
+    const playAudio = async () => {
+      if (audioRef.current) {
+        audioRef.current.volume = 0.4;
+        try {
+          await audioRef.current.play();
+          setIsPlaying(true);
+        } catch (err) {
+          console.log("Autoplay blocked");
+        }
+      }
+    };
+    playAudio();
+
+    // 2. Agar autoplay fail hua, toh PEHLI baar click karne par chalega
+    const handleFirstClick = () => {
+      if (audioRef.current && audioRef.current.paused) {
+        audioRef.current.play();
+        setIsPlaying(true);
+        // Music chal gaya, ab ye listener hata do taaki dubara pareshan na kare
+        document.removeEventListener("click", handleFirstClick);
+      }
+    };
+
+    document.addEventListener("click", handleFirstClick);
+    return () => document.removeEventListener("click", handleFirstClick);
   }, []);
 
-  // Allow parent component to trigger play
-  useImperativeHandle(ref, () => ({
-    play: () => {
-      if (audioRef.current) {
-        audioRef.current.play().catch((e) => {
-          console.log("Autoplay prevented:", e);
-        });
-        setIsPlaying(true);
-      }
-    }
-  }));
+  const togglePlay = (e: React.MouseEvent) => {
+    // Ye line zaroori hai: Ye batati hai ki click button pe hua hai, background pe nahi
+    e.stopPropagation();
 
-  const togglePlay = () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
-        audioRef.current.play().catch(() => {
-          // Autoplay was prevented
-        });
+        audioRef.current.play();
       }
       setIsPlaying(!isPlaying);
     }
   };
 
   return (
-    <motion.div
-      className="fixed top-6 right-6 z-50"
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 1, duration: 0.5 }}
-    >
-      <audio
-        ref={audioRef}
-        src={audioSrc}
-        onCanPlay={() => setIsLoaded(true)}
-        preload="auto"
-        crossOrigin="anonymous" 
-      />
-      
-      <motion.button
+    <div className="fixed bottom-4 right-4 z-50">
+      <audio ref={audioRef} loop>
+        <source src="/music.mp3" type="audio/mp3" />
+      </audio>
+      <button
         onClick={togglePlay}
-        className="relative p-4 rounded-full bg-card/80 backdrop-blur-sm border border-primary/30 shadow-gold"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        disabled={!isLoaded}
+        className="p-3 bg-white/20 backdrop-blur-md rounded-full text-white border border-white/20 shadow-lg hover:bg-white/30 transition-all cursor-pointer"
+        title={isPlaying ? "Pause Music" : "Play Music"}
       >
-        <AnimatePresence mode="wait">
-          {isPlaying ? (
-            <motion.div
-              key="playing"
-              initial={{ opacity: 0, rotate: -90 }}
-              animate={{ opacity: 1, rotate: 0 }}
-              exit={{ opacity: 0, rotate: 90 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Volume2 className="w-5 h-5 text-primary" />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="paused"
-              initial={{ opacity: 0, rotate: -90 }}
-              animate={{ opacity: 1, rotate: 0 }}
-              exit={{ opacity: 0, rotate: 90 }}
-              transition={{ duration: 0.2 }}
-            >
-              <VolumeX className="w-5 h-5 text-muted-foreground" />
-            </motion.div>
-          )}
-        </AnimatePresence>
-        
-        {/* Pulsing ring when playing */}
-        {isPlaying && (
-          <motion.div
-            className="absolute inset-0 rounded-full border-2 border-primary/50"
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.5, 0, 0.5],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        )}
-      </motion.button>
-    </motion.div>
+        {isPlaying ? <Volume2 size={24} /> : <VolumeX size={24} />}
+      </button>
+    </div>
   );
-});
+};
 
 export default AudioPlayer;
